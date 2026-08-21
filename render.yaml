@@ -1,0 +1,31 @@
+# Render blueprint: FastAPI backend on the FREE web tier + FREE external
+# Postgres (Neon). Render's managed Postgres is paid, so the database lives
+# on Neon (neon.tech, free tier, no card) and its URL is pasted manually.
+# Frontend deploys separately on Vercel (see frontend/vercel.json and
+# frontend/.env.example). After first deploy, set BACKEND_CORS_ORIGINS
+# to the real Vercel URL in the Render dashboard.
+# NOTE: free Render webs sleep after 15 min idle — hit /api/v1/health a
+# minute before the demo to wake it.
+services:
+  - type: web
+    name: hiring-platform-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        sync: false # paste Neon pooled connection string in dashboard
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BACKEND_CORS_ORIGINS
+        value: https://hiring-platform.vercel.app
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

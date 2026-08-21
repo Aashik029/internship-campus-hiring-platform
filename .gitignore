@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+.venv/
+.venv_bak_312/
+venv/
+env/
+ENV/
+
+# Environment files (never commit real secrets)
+.env
+.env.*
+!.env.example
+
+# React / frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Browser test artifacts
+.playwright-mcp/
+
+# Local review notes (do not commit)
+REVIEW1_SCRIPT.md
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Databases
+*.db
+*.sqlite3
+*.log
+
+# IDE / editors
+# VS Code workspace config IS tracked — see .vscode/ folder
+.idea/
+*.iml
+# Personal VS Code settings (not workspace-wide)
+!.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local reference material -- DO NOT commit course handouts to the portfolio repo
+cap.pdf
+week 1 instructions.txt
