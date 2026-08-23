@@ -1,0 +1,89 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "frontend/**"
+      - "docs/**"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "frontend/**"
+      - "docs/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hiring_platform_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install linters
+        run: pip install black==24.10.0 flake8==7.1.1
+
+      - name: Run black
+        run: black --check app tests
+
+      - name: Run flake8
+        run: flake8 app tests
+
+      - name: Run tests with coverage (fail under 85%)
+        env:
+          DATABASE_URL: postgresql+psycopg2://postgres:postgres@localhost:5432/hiring_platform_test
+        run: pytest -q --cov=app --cov-report=xml --cov-fail-under=85
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage-xml
+          path: coverage.xml
+
+  # Review-II evidence: CI deploys the backend after green tests.
+  # Set RENDER_DEPLOY_HOOK_URL as a repo secret (Render dashboard >
+  # service > Settings > Deploy Hook). Skipped silently without it.
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy hook
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "RENDER_DEPLOY_HOOK_URL not set — skipping deploy."
+            exit 0
+          fi
+          curl -fsSL -X POST "$RENDER_DEPLOY_HOOK_URL"
