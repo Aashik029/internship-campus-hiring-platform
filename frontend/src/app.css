@@ -1,0 +1,251 @@
+/* CampusHire theme — modern indigo/violet, Bootstrap 5 friendly. */
+
+:root {
+  --brand-1: #4f46e5;
+  --brand-2: #7c3aed;
+  --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 60%, #9333ea 100%);
+  --ink: #1e1b3a;
+  --muted: #6b7280;
+  --page-bg: #f5f6fb;
+  --card-radius: 1rem;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --- Buttons / forms --- */
+.btn-primary {
+  background: var(--brand-gradient);
+  border: none;
+  border-radius: 0.65rem;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  filter: brightness(1.07);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.45);
+}
+.btn-outline-primary {
+  border-radius: 0.65rem;
+  font-weight: 600;
+  border-width: 2px;
+}
+.form-control,
+.form-select {
+  border-radius: 0.65rem;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand-1);
+  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.18);
+}
+
+/* --- Cards --- */
+.card {
+  border: none;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 18px rgba(30, 27, 58, 0.07);
+}
+.card-lift {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.16);
+}
+
+/* --- Navbar --- */
+.navbar-glass {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(79, 70, 229, 0.12);
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--brand-gradient);
+  color: #fff;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+.navbar-glass .navbar-brand {
+  color: var(--ink) !important;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.navbar-glass .nav-link {
+  color: #4b5563 !important;
+  font-weight: 500;
+}
+.role-pill {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--brand-1);
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --- Hero (landing) --- */
+.hero {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.22) 0, transparent 34%),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.14) 0, transparent 30%),
+    var(--brand-gradient);
+  color: #fff;
+  border-radius: 1.5rem;
+  padding: 3.5rem 2.5rem;
+  box-shadow: 0 18px 50px rgba(79, 70, 229, 0.35);
+}
+.hero h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.hero .lead {
+  color: rgba(255, 255, 255, 0.88);
+}
+.hero .btn-light {
+  border-radius: 0.65rem;
+  font-weight: 700;
+  color: var(--brand-1);
+}
+.hero .btn-outline-light {
+  border-radius: 0.65rem;
+  font-weight: 600;
+  border-width: 2px;
+}
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.hero-stats strong {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.hero-stats span {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- Sections --- */
+.overline {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--brand-1);
+}
+.step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--brand-1);
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Dashboard --- */
+.page-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.stat-card {
+  border: none;
+  border-radius: var(--card-radius);
+  color: #fff;
+  background: var(--brand-gradient);
+  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.28);
+}
+.stat-card.stat-2 {
+  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  box-shadow: 0 8px 22px rgba(14, 165, 233, 0.28);
+}
+.stat-card.stat-3 {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  box-shadow: 0 8px 22px rgba(139, 92, 246, 0.28);
+}
+.stat-card .stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.section-head::before {
+  content: "";
+  width: 5px;
+  height: 1.4rem;
+  border-radius: 3px;
+  background: var(--brand-gradient);
+}
+.empty-state {
+  border: 2px dashed rgba(79, 70, 229, 0.25);
+  border-radius: var(--card-radius);
+  padding: 1.75rem;
+  text-align: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.6);
+}
+.skill-chip {
+  background: rgba(79, 70, 229, 0.09) !important;
+  color: var(--brand-1) !important;
+  font-weight: 600;
+  border-radius: 999px !important;
+  padding: 0.3em 0.75em !important;
+}
+
+/* --- Auth --- */
+.auth-band {
+  background: var(--brand-gradient);
+  color: #fff;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  padding: 1.5rem 2rem;
+}
+.auth-band h4 {
+  margin: 0;
+  font-weight: 800;
+}
+.auth-band p {
+  margin: 0.25rem 0 0;
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+/* --- Footer --- */
+.app-footer {
+  margin-top: 4rem;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid rgba(79, 70, 229, 0.12);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
